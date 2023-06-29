@@ -5148,99 +5148,21 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
 <span class="sd">            opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="k">if</span> <span class="n">vis_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">vis_params</span> <span class="o">=</span> <span class="p">{}</span>
-
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">layer_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
             <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="p">):</span>
-            <span class="n">err_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">The image argument in &#39;addLayer&#39; function must be an instance of one of ee.Image, ee.Geometry, ee.Feature or ee.FeatureCollection.&quot;</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">featurecollection</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="p">):</span>
-            <span class="n">features</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-
-            <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
-
-            <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-                <span class="n">width</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
-
-            <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;000000&quot;</span>
-
-            <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-                <span class="n">color</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
-
-            <span class="n">image_fill</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">})</span><span class="o">.</span><span class="n">updateMask</span><span class="p">(</span>
-                <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="n">image_outline</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
-                <span class="o">**</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">}</span>
-            <span class="p">)</span>
-
-            <span class="n">image</span> <span class="o">=</span> <span class="n">image_fill</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">image_outline</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">imagecollection</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="n">Box</span><span class="p">):</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The provided palette is invalid.&quot;</span><span class="p">)</span>
-                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_cmap</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-            <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;The palette must be a list of colors or a string or a Box object.&quot;</span>
-                <span class="p">)</span>
-
-        <span class="n">map_id_dict</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">getMapId</span><span class="p">(</span><span class="n">vis_params</span><span class="p">)</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">map_id_dict</span><span class="p">[</span><span class="s2">&quot;tile_fetcher&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">url_format</span>
-        <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-            <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Google Earth Engine&quot;</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
-            <span class="n">visible</span><span class="o">=</span><span class="n">shown</span><span class="p">,</span>
-            <span class="n">max_zoom</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
         <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span>
-                <span class="n">existing_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span>
-            <span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="p">(</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-                <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-                <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-            <span class="p">):</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
@@ -5254,27 +5176,23 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
             <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
-            <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
+            <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="o">.</span><span class="n">vis_params</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_ee_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
-        <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+        <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
     <span class="n">addLayer</span> <span class="o">=</span> <span class="n">add_ee_layer</span>
 
@@ -6474,7 +6392,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">left_image</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">left_image</span><span class="p">)</span>
 
-                    <span class="n">left_image</span> <span class="o">=</span> <span class="n">ee_tile_layer</span><span class="p">(</span>
+                    <span class="n">left_image</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
                         <span class="n">left_image</span><span class="p">,</span> <span class="n">left_vis</span><span class="p">,</span> <span class="n">left_names</span><span class="p">[</span><span class="n">left_dropdown_index</span><span class="p">]</span>
                     <span class="p">)</span>
                     <span class="n">left_layer</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">left_image</span><span class="o">.</span><span class="n">url</span>
@@ -6505,7 +6423,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">right_image</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">right_image</span><span class="p">)</span>
 
-                    <span class="n">right_image</span> <span class="o">=</span> <span class="n">ee_tile_layer</span><span class="p">(</span>
+                    <span class="n">right_image</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
                         <span class="n">right_image</span><span class="p">,</span>
                         <span class="n">right_vis</span><span class="p">,</span>
                         <span class="n">right_names</span><span class="p">[</span><span class="n">right_dropdown_index</span><span class="p">],</span>
@@ -7524,7 +7442,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes user-drawn geometries from the map&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">collection</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">ee_tile_layer</span><span class="p">(</span>
+            <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
                 <span class="n">collection</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span> <span class="s2">&quot;Drawn Features&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mf">0.5</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -11367,7 +11285,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                     <span class="bp">self</span><span class="o">.</span><span class="n">draw_count</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="n">collection</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="n">collection</span>
-                <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">ee_tile_layer</span><span class="p">(</span>
+                <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
                     <span class="n">collection</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span> <span class="s2">&quot;Drawn Features&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">0.5</span>
                 <span class="p">)</span>
                 <span class="n">draw_layer_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer_index</span><span class="p">(</span><span class="s2">&quot;Drawn Features&quot;</span><span class="p">)</span>
@@ -11569,99 +11487,21 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
 <span class="sd">        opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">if</span> <span class="n">vis_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">vis_params</span> <span class="o">=</span> <span class="p">{}</span>
-
     <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">layer_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
         <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">err_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">The image argument in &#39;addLayer&#39; function must be an instance of one of ee.Image, ee.Geometry, ee.Feature or ee.FeatureCollection.&quot;</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">featurecollection</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-
-        <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
-
-        <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
-
-        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;000000&quot;</span>
-
-        <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
-
-        <span class="n">image_fill</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">})</span><span class="o">.</span><span class="n">updateMask</span><span class="p">(</span>
-            <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">image_outline</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
-            <span class="o">**</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">}</span>
-        <span class="p">)</span>
-
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image_fill</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">image_outline</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">imagecollection</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="n">Box</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The provided palette is invalid.&quot;</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_cmap</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;The palette must be a list of colors or a string or a Box object.&quot;</span>
-            <span class="p">)</span>
-
-    <span class="n">map_id_dict</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">getMapId</span><span class="p">(</span><span class="n">vis_params</span><span class="p">)</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">map_id_dict</span><span class="p">[</span><span class="s2">&quot;tile_fetcher&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">url_format</span>
-    <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-        <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-        <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Google Earth Engine&quot;</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
-        <span class="n">visible</span><span class="o">=</span><span class="n">shown</span><span class="p">,</span>
-        <span class="n">max_zoom</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
     <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">existing_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span>
-        <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
@@ -11675,27 +11515,23 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
         <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
-        <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
+        <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="o">.</span><span class="n">vis_params</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">last_ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">last_ee_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-    <span class="p">):</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
-    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -12999,7 +12835,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
                 <span class="bp">self</span><span class="o">.</span><span class="n">draw_count</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">collection</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="n">collection</span>
-            <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">ee_tile_layer</span><span class="p">(</span>
+            <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
                 <span class="n">collection</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span> <span class="s2">&quot;Drawn Features&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">0.5</span>
             <span class="p">)</span>
             <span class="n">draw_layer_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer_index</span><span class="p">(</span><span class="s2">&quot;Drawn Features&quot;</span><span class="p">)</span>
@@ -13143,99 +12979,21 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">        shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
 <span class="sd">        opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">if</span> <span class="n">vis_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">vis_params</span> <span class="o">=</span> <span class="p">{}</span>
-
     <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">layer_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
         <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Layer &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer_count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">err_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">The image argument in &#39;addLayer&#39; function must be an instance of one of ee.Image, ee.Geometry, ee.Feature or ee.FeatureCollection.&quot;</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">featurecollection</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-
-        <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
-
-        <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
-
-        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;000000&quot;</span>
-
-        <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
-
-        <span class="n">image_fill</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">})</span><span class="o">.</span><span class="n">updateMask</span><span class="p">(</span>
-            <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">image_outline</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
-            <span class="o">**</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">}</span>
-        <span class="p">)</span>
-
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image_fill</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">image_outline</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">imagecollection</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="n">Box</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The provided palette is invalid.&quot;</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_cmap</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;The palette must be a list of colors or a string or a Box object.&quot;</span>
-            <span class="p">)</span>
-
-    <span class="n">map_id_dict</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">getMapId</span><span class="p">(</span><span class="n">vis_params</span><span class="p">)</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">map_id_dict</span><span class="p">[</span><span class="s2">&quot;tile_fetcher&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">url_format</span>
-    <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-        <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-        <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Google Earth Engine&quot;</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
-        <span class="n">visible</span><span class="o">=</span><span class="n">shown</span><span class="p">,</span>
-        <span class="n">max_zoom</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 
     <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">existing_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">existing_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span>
-        <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">existing_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="p">(</span>
-            <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">existing_object</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
@@ -13249,27 +13007,23 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
     <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;ee_object&quot;</span><span class="p">:</span> <span class="n">ee_object</span><span class="p">,</span>
         <span class="s2">&quot;ee_layer&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="p">,</span>
-        <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">vis_params</span><span class="p">,</span>
+        <span class="s2">&quot;vis_params&quot;</span><span class="p">:</span> <span class="n">tile_layer</span><span class="o">.</span><span class="n">vis_params</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tile_layer</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">last_ee_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">last_ee_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_dropdown_widget</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ee_raster_layer_names</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-    <span class="p">):</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ee_vector_layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
-    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">arc_add_layer</span><span class="p">(</span><span class="n">tile_layer</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -23150,7 +22904,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes user-drawn geometries from the map&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">collection</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">ee_tile_layer</span><span class="p">(</span>
+        <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
             <span class="n">collection</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span> <span class="s2">&quot;Drawn Features&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mf">0.5</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -24797,7 +24551,7 @@ appends all of the style keys to the standard Google Maps API map types.. Defaul
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">left_image</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">left_image</span><span class="p">)</span>
 
-                <span class="n">left_image</span> <span class="o">=</span> <span class="n">ee_tile_layer</span><span class="p">(</span>
+                <span class="n">left_image</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
                     <span class="n">left_image</span><span class="p">,</span> <span class="n">left_vis</span><span class="p">,</span> <span class="n">left_names</span><span class="p">[</span><span class="n">left_dropdown_index</span><span class="p">]</span>
                 <span class="p">)</span>
                 <span class="n">left_layer</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">left_image</span><span class="o">.</span><span class="n">url</span>
@@ -24828,7 +24582,7 @@ appends all of the style keys to the standard Google Maps API map types.. Defaul
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">right_image</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">right_image</span><span class="p">)</span>
 
-                <span class="n">right_image</span> <span class="o">=</span> <span class="n">ee_tile_layer</span><span class="p">(</span>
+                <span class="n">right_image</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
                     <span class="n">right_image</span><span class="p">,</span>
                     <span class="n">right_vis</span><span class="p">,</span>
                     <span class="n">right_names</span><span class="p">[</span><span class="n">right_dropdown_index</span><span class="p">],</span>
@@ -25283,72 +25037,7 @@ appends all of the style keys to the standard Google Maps API map types.. Defaul
 <span class="sd">        shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
 <span class="sd">        opacity (float, optional): The layer&#39;s opacity represented as a number between 0 and 1. Defaults to 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">err_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">The image argument in &#39;addLayer&#39; function must be an instance of one of ee.Image, ee.Geometry, ee.Feature or ee.FeatureCollection.&quot;</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">err_str</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Geometry</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">Feature</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">featurecollection</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span>
-    <span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="n">ee_object</span><span class="p">)</span>
-
-        <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
-
-        <span class="k">if</span> <span class="s2">&quot;width&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;width&quot;</span><span class="p">]</span>
-
-        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;000000&quot;</span>
-
-        <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>
-
-        <span class="n">image_fill</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">})</span><span class="o">.</span><span class="n">updateMask</span><span class="p">(</span>
-            <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">image_outline</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
-            <span class="o">**</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span> <span class="s2">&quot;fillColor&quot;</span><span class="p">:</span> <span class="s2">&quot;00000000&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="n">width</span><span class="p">}</span>
-        <span class="p">)</span>
-
-        <span class="n">image</span> <span class="o">=</span> <span class="n">image_fill</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">image_outline</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">imagecollection</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis_params</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="n">Box</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The provided palette is invalid.&quot;</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_cmap</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vis_params</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;The palette must be a list of colors or a string or a Box object.&quot;</span>
-            <span class="p">)</span>
-
-    <span class="n">map_id_dict</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">getMapId</span><span class="p">(</span><span class="n">vis_params</span><span class="p">)</span>
-    <span class="n">tile_layer</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">TileLayer</span><span class="p">(</span>
-        <span class="n">url</span><span class="o">=</span><span class="n">map_id_dict</span><span class="p">[</span><span class="s2">&quot;tile_fetcher&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">url_format</span><span class="p">,</span>
-        <span class="n">attribution</span><span class="o">=</span><span class="s2">&quot;Google Earth Engine&quot;</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="n">opacity</span><span class="p">,</span>
-        <span class="n">visible</span><span class="o">=</span><span class="n">shown</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">tile_layer</span>
+    <span class="k">return</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">vis_params</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">shown</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
