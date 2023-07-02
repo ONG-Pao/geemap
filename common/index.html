@@ -9510,7 +9510,7 @@ TitilerEndpoint        </code>
             <span class="n">values</span> <span class="o">=</span> <span class="n">api_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
             <span class="k">with</span> <span class="n">output_widget</span><span class="p">:</span>
-                <span class="n">output_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                <span class="n">output_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="n">html_widget</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">HTML</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s2">&quot;html&quot;</span><span class="p">])</span>
                 <span class="n">display</span><span class="p">(</span><span class="n">html_widget</span><span class="p">)</span>
 
@@ -21955,8 +21955,8 @@ opt_url='https://earthengine-highvolume.googleapis.com' to use the Earth Engine 
     <span class="k">def</span> <span class="nf">search_type_changed</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
         <span class="n">search_box</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="n">output_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
-        <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+        <span class="n">output_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
+        <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
         <span class="k">if</span> <span class="n">change</span><span class="p">[</span><span class="s2">&quot;new&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Scripts&quot;</span><span class="p">:</span>
             <span class="n">search_box</span><span class="o">.</span><span class="n">placeholder</span> <span class="o">=</span> <span class="s2">&quot;Filter scripts...&quot;</span>
             <span class="n">left_widget</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">search_type</span><span class="p">,</span> <span class="n">repo_tree</span><span class="p">]</span>
@@ -21974,7 +21974,7 @@ opt_url='https://earthengine-highvolume.googleapis.com' to use the Earth Engine 
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">ee_api_tree</span> <span class="o">=</span> <span class="n">flags</span><span class="o">.</span><span class="n">docs</span>
             <span class="k">with</span> <span class="n">tree_widget</span><span class="p">:</span>
-                <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="n">display</span><span class="p">(</span><span class="n">ee_api_tree</span><span class="p">)</span>
                 <span class="n">right_widget</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">output_widget</span><span class="p">]</span>
             <span class="n">search_box</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -21992,7 +21992,7 @@ opt_url='https://earthengine-highvolume.googleapis.com' to use the Earth Engine 
                 <span class="n">flags</span><span class="o">.</span><span class="n">asset_import</span> <span class="o">=</span> <span class="n">asset_widget</span>
 
             <span class="k">with</span> <span class="n">tree_widget</span><span class="p">:</span>
-                <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="n">display</span><span class="p">(</span><span class="n">flags</span><span class="o">.</span><span class="n">assets</span><span class="p">)</span>
             <span class="n">right_widget</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">flags</span><span class="o">.</span><span class="n">asset_import</span><span class="p">]</span>
             <span class="n">search_box</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
@@ -22004,24 +22004,24 @@ opt_url='https://earthengine-highvolume.googleapis.com' to use the Earth Engine 
             <span class="k">with</span> <span class="n">tree_widget</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading...&quot;</span><span class="p">)</span>
-                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="n">display</span><span class="p">(</span><span class="n">flags</span><span class="o">.</span><span class="n">docs</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Searching...&quot;</span><span class="p">)</span>
-                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="n">sub_tree</span> <span class="o">=</span> <span class="n">search_api_tree</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">flags</span><span class="o">.</span><span class="n">docs_dict</span><span class="p">)</span>
                     <span class="n">display</span><span class="p">(</span><span class="n">sub_tree</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">search_type</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Assets&quot;</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">tree_widget</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading...&quot;</span><span class="p">)</span>
-                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="n">display</span><span class="p">(</span><span class="n">flags</span><span class="o">.</span><span class="n">assets</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Searching...&quot;</span><span class="p">)</span>
-                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="n">sub_tree</span> <span class="o">=</span> <span class="n">search_api_tree</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">flags</span><span class="o">.</span><span class="n">asset_dict</span><span class="p">)</span>
                     <span class="n">display</span><span class="p">(</span><span class="n">sub_tree</span><span class="p">)</span>
 
@@ -24332,12 +24332,12 @@ the geometry doesn't matter.  From Fiona 1.4.8</p>
         <span class="k">with</span> <span class="n">tree_widget</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading...&quot;</span><span class="p">)</span>
-                <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="n">display</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Searching...&quot;</span><span class="p">)</span>
-                <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="n">sub_tree</span> <span class="o">=</span> <span class="n">search_api_tree</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">tree_dict</span><span class="p">)</span>
                 <span class="n">display</span><span class="p">(</span><span class="n">sub_tree</span><span class="p">)</span>
 
@@ -24430,7 +24430,7 @@ the geometry doesn't matter.  From Fiona 1.4.8</p>
                 <span class="n">node</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">handle_file_click</span><span class="p">,</span> <span class="s2">&quot;selected&quot;</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="n">tree_widget</span><span class="p">:</span>
-        <span class="n">tree_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+        <span class="n">tree_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
         <span class="n">display</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">return_sep_widgets</span><span class="p">:</span>
@@ -41902,7 +41902,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = f&#39;{os.environ[&#39;JUP
         <span class="n">out</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">()</span>
         <span class="c1"># layout={&#39;border&#39;: &#39;1px solid black&#39;})</span>
         <span class="c1"># layout={&#39;border&#39;: &#39;1px solid black&#39;, &#39;width&#39;: str(width + 20) + &#39;px&#39;, &#39;height&#39;: str(height + 10) + &#39;px&#39;},)</span>
-        <span class="n">out</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
         <span class="n">display</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">out</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">img_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">):</span>
@@ -41978,7 +41978,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = f&#39;{os.environ[&#39;JUP
     <span class="k">try</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">(</span><span class="n">layout</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;815px&quot;</span><span class="p">})</span>
         <span class="c1"># layout={&#39;border&#39;: &#39;1px solid black&#39;, &#39;width&#39;: &#39;815px&#39;})</span>
-        <span class="n">out</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
         <span class="n">display</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">out</span><span class="p">:</span>
             <span class="n">display</span><span class="p">(</span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">))</span>

@@ -5080,7 +5080,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
         <span class="n">tool_output</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Output</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tool_output</span> <span class="o">=</span> <span class="n">tool_output</span>
-        <span class="n">tool_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">tool_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
 
         <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;toolbar_ctrl&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_toolbar</span><span class="p">()</span>
@@ -5844,7 +5844,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                 <span class="k">if</span> <span class="n">max_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">max_height</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span>
 
-                <span class="n">plot_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">plot_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">overlay</span><span class="p">:</span>
                     <span class="n">plt</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
@@ -6049,7 +6049,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_widget</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">plot_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">plot_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No data for the clicked location.&quot;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
@@ -6845,7 +6845,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">transparent_bg</span><span class="o">=</span><span class="n">transparent_bg</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
-            <span class="n">output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">colorbar</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
@@ -6928,7 +6928,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
-            <span class="n">output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
             <span class="n">display</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">colorbar</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
@@ -7696,7 +7696,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
                         <span class="n">colorbar_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span>
                         <span class="k">with</span> <span class="n">colorbar_output</span><span class="p">:</span>
-                            <span class="n">colorbar_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                            <span class="n">colorbar_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                             <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
                         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;,&quot;</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
@@ -7889,7 +7889,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
                     <span class="n">colorbar_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span>
                     <span class="k">with</span> <span class="n">colorbar_output</span><span class="p">:</span>
-                        <span class="n">colorbar_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                        <span class="n">colorbar_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
                         <span class="c1"># display(colorbar)</span>
 
@@ -8016,7 +8016,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                             <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">radio1</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="p">:</span>
                             <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
                             <span class="n">colors</span> <span class="o">=</span> <span class="n">to_hex_colors</span><span class="p">(</span><span class="n">vis</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
@@ -8121,7 +8121,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                         <span class="p">[</span><span class="n">color</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
                     <span class="p">)</span>
 
-                    <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="p">:</span>
                         <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
                         <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
@@ -8185,7 +8185,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_ctrl</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colorbar_ctrl</span><span class="p">)</span>
 
-                    <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="p">:</span>
                         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -8485,7 +8485,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
                         <span class="n">colorbar_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span>
                         <span class="k">with</span> <span class="n">colorbar_output</span><span class="p">:</span>
-                            <span class="n">colorbar_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                            <span class="n">colorbar_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                             <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
                         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;,&quot;</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
@@ -8532,7 +8532,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
                     <span class="n">colorbar_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span>
                     <span class="k">with</span> <span class="n">colorbar_output</span><span class="p">:</span>
-                        <span class="n">colorbar_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                        <span class="n">colorbar_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
                         <span class="c1"># display(colorbar)</span>
 
@@ -12296,7 +12296,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="n">transparent_bg</span><span class="o">=</span><span class="n">transparent_bg</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
-        <span class="n">output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">colorbar</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
@@ -12481,7 +12481,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">with</span> <span class="n">output</span><span class="p">:</span>
-        <span class="n">output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
         <span class="n">display</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">colorbar</span> <span class="o">=</span> <span class="n">colormap_ctrl</span>
@@ -20114,7 +20114,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
                     <span class="n">colorbar_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span>
                     <span class="k">with</span> <span class="n">colorbar_output</span><span class="p">:</span>
-                        <span class="n">colorbar_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                        <span class="n">colorbar_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;,&quot;</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
@@ -20307,7 +20307,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
                 <span class="n">colorbar_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span>
                 <span class="k">with</span> <span class="n">colorbar_output</span><span class="p">:</span>
-                    <span class="n">colorbar_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                    <span class="n">colorbar_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
                     <span class="c1"># display(colorbar)</span>
 
@@ -20434,7 +20434,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
                         <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">radio1</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;palette&quot;</span> <span class="ow">in</span> <span class="n">vis</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="p">:</span>
                         <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
                         <span class="n">colors</span> <span class="o">=</span> <span class="n">to_hex_colors</span><span class="p">(</span><span class="n">vis</span><span class="p">[</span><span class="s2">&quot;palette&quot;</span><span class="p">])</span>
@@ -20539,7 +20539,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
                     <span class="p">[</span><span class="n">color</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
                 <span class="p">)</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="p">:</span>
                     <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
                     <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
@@ -20603,7 +20603,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_ctrl</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colorbar_ctrl</span><span class="p">)</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                 <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span><span class="p">:</span>
                     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -20903,7 +20903,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
                     <span class="n">colorbar_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span>
                     <span class="k">with</span> <span class="n">colorbar_output</span><span class="p">:</span>
-                        <span class="n">colorbar_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                        <span class="n">colorbar_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;,&quot;</span> <span class="ow">in</span> <span class="n">palette</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
@@ -20950,7 +20950,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
                 <span class="n">colorbar_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colorbar_widget</span>
                 <span class="k">with</span> <span class="n">colorbar_output</span><span class="p">:</span>
-                    <span class="n">colorbar_output</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                    <span class="n">colorbar_output</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
                     <span class="c1"># display(colorbar)</span>
 
@@ -22300,7 +22300,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
             <span class="k">if</span> <span class="n">max_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">max_height</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span>
 
-            <span class="n">plot_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">plot_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">overlay</span><span class="p">:</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
@@ -22679,7 +22679,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_widget</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">plot_widget</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">plot_widget</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="p">()</span>
                         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No data for the clicked location.&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
