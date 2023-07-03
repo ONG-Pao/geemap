@@ -1036,6 +1036,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geemap.common.create_grid" class="md-nav__link">
+    create_grid()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geemap.common.create_legend" class="md-nav__link">
     create_legend()
   </a>
@@ -1806,6 +1813,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geemap.common.get_temp_dir" class="md-nav__link">
+    get_temp_dir()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geemap.common.get_wms_layers" class="md-nav__link">
     get_wms_layers()
   </a>
@@ -2130,6 +2144,13 @@
         <li class="md-nav__item">
   <a href="#geemap.common.jrc_hist_monthly_history" class="md-nav__link">
     jrc_hist_monthly_history()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geemap.common.jslink_slider_label" class="md-nav__link">
+    jslink_slider_label()
   </a>
   
 </li>
@@ -5758,6 +5779,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geemap.common.create_grid" class="md-nav__link">
+    create_grid()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geemap.common.create_legend" class="md-nav__link">
     create_legend()
   </a>
@@ -6528,6 +6556,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geemap.common.get_temp_dir" class="md-nav__link">
+    get_temp_dir()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geemap.common.get_wms_layers" class="md-nav__link">
     get_wms_layers()
   </a>
@@ -6852,6 +6887,13 @@
         <li class="md-nav__item">
   <a href="#geemap.common.jrc_hist_monthly_history" class="md-nav__link">
     jrc_hist_monthly_history()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geemap.common.jslink_slider_label" class="md-nav__link">
+    jslink_slider_label()
   </a>
   
 </li>
@@ -13638,6 +13680,103 @@ for compatibility with the new point_format. The file version will not be downgr
 
   </div>
 
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="geemap.common.create_grid" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">create_grid</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#geemap.common.create_grid" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Create a grid covering an Earth Engine object.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ee_object</code></td>
+        <td><code>ee.Image | ee.Geometry | ee.FeatureCollection</code></td>
+        <td><p>The Earth Engine object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>scale</code></td>
+        <td><code>float</code></td>
+        <td><p>The grid cell size.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>proj</code></td>
+        <td><code>str</code></td>
+        <td><p>The projection. Defaults to None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ee.FeatureCollection</code></td>
+      <td><p>The grid as a feature collection.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create_grid</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a grid covering an Earth Engine object.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ee_object (ee.Image | ee.Geometry | ee.FeatureCollection): The Earth Engine object.</span>
+<span class="sd">        scale (float): The grid cell size.</span>
+<span class="sd">        proj (str, optional): The projection. Defaults to None.</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ee.FeatureCollection: The grid as a feature collection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="p">):</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="n">ee_object</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;ee_object must be an ee.FeatureCollection, ee.Image, or ee.Geometry&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">proj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">proj</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">projection</span><span class="p">()</span>
+
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">coveringGrid</span><span class="p">(</span><span class="n">proj</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">grid</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
 
 
 
@@ -28607,6 +28746,55 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = f&#39;{os.environ[&#39;JUP
 
 
 
+<h2 id="geemap.common.get_temp_dir" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_temp_dir</span><span class="p">()</span></code>
+
+
+<a href="#geemap.common.get_temp_dir" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns the temporary directory.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>The temporary directory.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_temp_dir</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the temporary directory.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The temporary directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">import</span> <span class="nn">tempfile</span>
+
+    <span class="k">return</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
 <h2 id="geemap.common.get_wms_layers" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_wms_layers</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">return_titles</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
@@ -33049,6 +33237,68 @@ Default to ee.ImageCollection('JRC/GSW1_4/MonthlyHistory')</p></td>
         <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="o">**</span><span class="n">layout_args</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">fig</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="geemap.common.jslink_slider_label" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">jslink_slider_label</span><span class="p">(</span><span class="n">slider</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span></code>
+
+
+<a href="#geemap.common.jslink_slider_label" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Link a slider and a label.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>slider</code></td>
+        <td><code>ipywidgets.IntSlider | ipywidgets.FloatSlider</code></td>
+        <td><p>The slider.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>label</code></td>
+        <td><code>ipywidgets.Label</code></td>
+        <td><p>The label.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">jslink_slider_label</span><span class="p">(</span><span class="n">slider</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Link a slider and a label.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        slider (ipywidgets.IntSlider | ipywidgets.FloatSlider): The slider.</span>
+<span class="sd">        label (ipywidgets.Label): The label.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">update_label</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">change</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]:</span>
+            <span class="n">label</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">change</span><span class="p">[</span><span class="s2">&quot;new&quot;</span><span class="p">])</span>
+
+    <span class="n">slider</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">update_label</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
