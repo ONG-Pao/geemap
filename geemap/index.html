@@ -4947,8 +4947,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
         <span class="c1"># Use any basemap available through the basemap module, such as &#39;ROADMAP&#39;, &#39;OpenTopoMap&#39;</span>
         <span class="k">if</span> <span class="s2">&quot;basemap&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_basemap</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">)</span>
 
         <span class="c1"># Inherits the ipyleaflet Map class</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -5037,14 +5040,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            object (object): The layer or control to add to the map.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">map_dict</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;ROADMAP&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Maps&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;SATELLITE&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Satellite&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;TERRAIN&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Terrain&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;HYBRID&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Hybrid&quot;</span><span class="p">,</span>
-            <span class="p">}</span>
-            <span class="k">if</span> <span class="nb">object</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">map_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="nb">object</span> <span class="o">=</span> <span class="n">map_dict</span><span class="p">[</span><span class="nb">object</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+            <span class="nb">object</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="nb">object</span> <span class="o">=</span> <span class="n">get_basemap</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
@@ -7698,6 +7694,26 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
         <span class="n">ee_plot_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">add_gui</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;layer_manager&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_layer_manager</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;inspector&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_inspector</span><span class="p">(</span>
+                <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+                <span class="n">opened</span><span class="o">=</span><span class="n">opened</span><span class="p">,</span>
+                <span class="n">show_close_button</span><span class="o">=</span><span class="n">show_close_button</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;plot&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_plot_gui</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;timelapse&quot;</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">timelapse_gui</span>
+
+            <span class="n">timelapse_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
     <span class="c1"># ******************************************************************************#</span>
     <span class="c1"># The classes and functions above are the core features of the geemap package.  #</span>
     <span class="c1"># The Earth Engine team and the geemap community will maintain these features.  #</span>
@@ -9223,7 +9239,14 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The shapefile has been saved to: </span><span class="si">{</span><span class="n">out_shp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_styled_vector</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">ee_object</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="s2">&quot;Untitled&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">ee_object</span><span class="p">,</span>
+        <span class="n">column</span><span class="p">,</span>
+        <span class="n">palette</span><span class="p">,</span>
+        <span class="n">layer_name</span><span class="o">=</span><span class="s2">&quot;Untitled&quot;</span><span class="p">,</span>
+        <span class="n">shown</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a styled vector to the map.</span>
 
@@ -9232,6 +9255,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            column (str): The column name to use for styling.</span>
 <span class="sd">            palette (list | dict): The palette (e.g., list of colors or a dict containing label and color pairs) to use for styling.</span>
 <span class="sd">            layer_name (str, optional): The name to be used for the new layer. Defaults to &quot;Untitled&quot;.</span>
+<span class="sd">            shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
+<span class="sd">            opacity (float, optional): The opacity of the layer. Defaults to 1.0.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="kn">from</span> <span class="nn">.colormaps</span> <span class="kn">import</span> <span class="n">get_palette</span>
@@ -9240,7 +9265,13 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">palette</span> <span class="o">=</span> <span class="n">get_palette</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 
         <span class="n">styled_vector</span> <span class="o">=</span> <span class="n">vector_styling</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">styled_vector</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;styleProperty&quot;</span><span class="p">:</span> <span class="s2">&quot;style&quot;</span><span class="p">}),</span> <span class="p">{},</span> <span class="n">layer_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span>
+            <span class="n">styled_vector</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;styleProperty&quot;</span><span class="p">:</span> <span class="s2">&quot;style&quot;</span><span class="p">}),</span>
+            <span class="p">{},</span>
+            <span class="n">layer_name</span><span class="p">,</span>
+            <span class="n">shown</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_shp</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -11604,8 +11635,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
     <span class="c1"># Use any basemap available through the basemap module, such as &#39;ROADMAP&#39;, &#39;OpenTopoMap&#39;</span>
     <span class="k">if</span> <span class="s2">&quot;basemap&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_basemap</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;basemap&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">)</span>
 
     <span class="c1"># Inherits the ipyleaflet Map class</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -11736,14 +11770,7 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        object (object): The layer or control to add to the map.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">map_dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;ROADMAP&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Maps&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;SATELLITE&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Satellite&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;TERRAIN&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Terrain&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;HYBRID&quot;</span><span class="p">:</span> <span class="s2">&quot;Google Hybrid&quot;</span><span class="p">,</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="nb">object</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="n">map_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="nb">object</span> <span class="o">=</span> <span class="n">map_dict</span><span class="p">[</span><span class="nb">object</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
+        <span class="nb">object</span> <span class="o">=</span> <span class="n">check_basemap</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">basemaps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="nb">object</span> <span class="o">=</span> <span class="n">get_basemap</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
@@ -14079,6 +14106,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
     </div>
 
   </div>
+
 
 
 
@@ -18700,7 +18728,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
 
 <h3 id="geemap.geemap.Map.add_styled_vector" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_styled_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ee_object</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="s1">&#39;Untitled&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_styled_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ee_object</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="s1">&#39;Untitled&#39;</span><span class="p">,</span> <span class="n">shown</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.geemap.Map.add_styled_vector" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -18744,12 +18772,31 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <td><p>The name to be used for the new layer. Defaults to "Untitled".</p></td>
         <td><code>&#39;Untitled&#39;</code></td>
       </tr>
+      <tr>
+        <td><code>shown</code></td>
+        <td><code>bool</code></td>
+        <td><p>A flag indicating whether the layer should be on by default. Defaults to True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>opacity</code></td>
+        <td><code>float</code></td>
+        <td><p>The opacity of the layer. Defaults to 1.0.</p></td>
+        <td><code>1.0</code></td>
+      </tr>
   </tbody>
 </table>
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_styled_vector</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">ee_object</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">layer_name</span><span class="o">=</span><span class="s2">&quot;Untitled&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">ee_object</span><span class="p">,</span>
+    <span class="n">column</span><span class="p">,</span>
+    <span class="n">palette</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="o">=</span><span class="s2">&quot;Untitled&quot;</span><span class="p">,</span>
+    <span class="n">shown</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a styled vector to the map.</span>
 
@@ -18758,6 +18805,8 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">        column (str): The column name to use for styling.</span>
 <span class="sd">        palette (list | dict): The palette (e.g., list of colors or a dict containing label and color pairs) to use for styling.</span>
 <span class="sd">        layer_name (str, optional): The name to be used for the new layer. Defaults to &quot;Untitled&quot;.</span>
+<span class="sd">        shown (bool, optional): A flag indicating whether the layer should be on by default. Defaults to True.</span>
+<span class="sd">        opacity (float, optional): The opacity of the layer. Defaults to 1.0.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">.colormaps</span> <span class="kn">import</span> <span class="n">get_palette</span>
@@ -18766,7 +18815,13 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <span class="n">palette</span> <span class="o">=</span> <span class="n">get_palette</span><span class="p">(</span><span class="n">palette</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
 
     <span class="n">styled_vector</span> <span class="o">=</span> <span class="n">vector_styling</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">styled_vector</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;styleProperty&quot;</span><span class="p">:</span> <span class="s2">&quot;style&quot;</span><span class="p">}),</span> <span class="p">{},</span> <span class="n">layer_name</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span>
+        <span class="n">styled_vector</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;styleProperty&quot;</span><span class="p">:</span> <span class="s2">&quot;style&quot;</span><span class="p">}),</span>
+        <span class="p">{},</span>
+        <span class="n">layer_name</span><span class="p">,</span>
+        <span class="n">shown</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="p">,</span>
+    <span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
