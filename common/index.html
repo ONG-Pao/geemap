@@ -1771,6 +1771,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geemap.common.get_ee_token" class="md-nav__link">
+    get_ee_token()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#geemap.common.get_geometry_coords" class="md-nav__link">
     get_geometry_coords()
   </a>
@@ -6530,6 +6537,13 @@
         <li class="md-nav__item">
   <a href="#geemap.common.get_direct_url" class="md-nav__link">
     get_direct_url()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geemap.common.get_ee_token" class="md-nav__link">
+    get_ee_token()
   </a>
   
 </li>
@@ -27717,6 +27731,60 @@ Source code adapted from https://github.com/mapbox/rasterio/blob/master/rasterio
 
     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">url</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="geemap.common.get_ee_token" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_ee_token</span><span class="p">()</span></code>
+
+
+<a href="#geemap.common.get_ee_token" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get Earth Engine token.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dict</code></td>
+      <td><p>The Earth Engine token.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/common.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_ee_token</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get Earth Engine token.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: The Earth Engine token.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">credential_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~/.config/earthengine/credentials&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">credential_file_path</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">credential_file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">credentials</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">credentials</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Earth Engine credentials not found. Please run ee.Authenticate()&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
 </code></pre></div>
         </details>
     </div>
