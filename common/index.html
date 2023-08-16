@@ -28335,6 +28335,9 @@ If False, returns the widget as ipytree.Tree. Defaults to False.</p></td>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">):</span>
         <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">toDictionary</span><span class="p">()))</span>
     <span class="n">layer_info</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_info</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
     <span class="n">props</span> <span class="o">=</span> <span class="n">layer_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;properties&quot;</span><span class="p">,</span> <span class="p">{})</span>
     <span class="n">layer_info</span><span class="p">[</span><span class="s2">&quot;properties&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">props</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
 

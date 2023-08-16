@@ -1291,13 +1291,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#geemap.geemap.Map.inspect" class="md-nav__link">
-    inspect()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.layer_opacity" class="md-nav__link">
     layer_opacity()
   </a>
@@ -4432,13 +4425,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#geemap.geemap.Map.inspect" class="md-nav__link">
-    inspect()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.layer_opacity" class="md-nav__link">
     layer_opacity()
   </a>
@@ -4966,6 +4952,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="c1"># Default map center center (lat, lon) and zoom level</span>
         <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="n">zoom</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Set map width and height</span>
         <span class="k">if</span> <span class="s2">&quot;height&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -7319,223 +7307,6 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
             <span class="k">return</span> <span class="n">vis_widget</span>
 
-    <span class="k">def</span> <span class="nf">_point_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latlon</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the ipytree widget for displaying the mouse clicking info.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            latlon (list | tuple): The coordinates (lat, lon) of the point.</span>
-<span class="sd">            decimals (int, optional): Number of decimals to round the coordinates to. Defaults to 3.</span>
-<span class="sd">            return_node (bool, optional): If True, return the ipytree node.</span>
-<span class="sd">                Otherwise, return the ipytree tree widget. Defaults to False.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            ipytree.Node | ipytree.Tree: The ipytree node or tree widget.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">ipytree</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Tree</span>
-
-        <span class="n">point_nodes</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">Node</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Longitude: </span><span class="si">{</span><span class="n">latlon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
-            <span class="n">Node</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Latitude: </span><span class="si">{</span><span class="n">latlon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
-            <span class="n">Node</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Zoom Level: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
-            <span class="n">Node</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Scale (approx. m/px): </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
-        <span class="p">]</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Point (</span><span class="si">{</span><span class="n">latlon</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">decimals</span><span class="si">}</span><span class="s2">f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">latlon</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">decimals</span><span class="si">}</span><span class="s2">f</span><span class="si">}</span><span class="s2">) at </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scale</span><span class="p">())</span><span class="si">}</span><span class="s2">m/px&quot;</span>
-        <span class="n">root_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
-            <span class="n">label</span><span class="p">,</span> <span class="n">nodes</span><span class="o">=</span><span class="n">point_nodes</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;map&quot;</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_expand_point</span>
-        <span class="p">)</span>
-
-        <span class="n">root_node</span><span class="o">.</span><span class="n">open_icon</span> <span class="o">=</span> <span class="s2">&quot;plus-square&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">open_icon_style</span> <span class="o">=</span> <span class="s2">&quot;success&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">close_icon</span> <span class="o">=</span> <span class="s2">&quot;minus-square&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">close_icon_style</span> <span class="o">=</span> <span class="s2">&quot;info&quot;</span>
-
-        <span class="k">if</span> <span class="n">return_node</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">root_node</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Tree</span><span class="p">(</span><span class="n">nodes</span><span class="o">=</span><span class="p">[</span><span class="n">root_node</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">_pixels_info</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">latlon</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the ipytree widget for displaying the pixel values at the mouse clicking point.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            latlon (list | tuple): The coordinates (lat, lon) of the point.</span>
-<span class="sd">            names (str | list, optional): The names of the layers to be included. Defaults to None.</span>
-<span class="sd">            visible (bool, optional): Whether to inspect visible layers only. Defaults to True.</span>
-<span class="sd">            decimals (int, optional): Number of decimals to round the pixel values. Defaults to 2.</span>
-<span class="sd">            return_node (bool, optional): If True, return the ipytree node.</span>
-<span class="sd">                Otherwise, return the ipytree tree widget. Defaults to False.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            ipytree.Node | ipytree.Tree: The ipytree node or tree widget.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">ipytree</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Tree</span>
-
-        <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">]</span>
-            <span class="n">layers</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-                    <span class="n">layers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span>
-        <span class="n">xy</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">latlon</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">sample_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getScale</span><span class="p">()</span>
-
-        <span class="n">root_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Pixels&quot;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;archive&quot;</span><span class="p">)</span>
-
-        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
-            <span class="n">layer_name</span> <span class="o">=</span> <span class="n">layer</span>
-            <span class="n">ee_object</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
-            <span class="n">object_type</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-
-            <span class="k">if</span> <span class="n">visible</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
-                    <span class="k">continue</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">):</span>
-                    <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">mosaic</span><span class="p">()</span>
-
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">Image</span><span class="p">):</span>
-                    <span class="n">item</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">reduceRegion</span><span class="p">(</span>
-                        <span class="n">ee</span><span class="o">.</span><span class="n">Reducer</span><span class="o">.</span><span class="n">first</span><span class="p">(),</span> <span class="n">xy</span><span class="p">,</span> <span class="n">sample_scale</span>
-                    <span class="p">)</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()</span>
-                    <span class="n">b_name</span> <span class="o">=</span> <span class="s2">&quot;band&quot;</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                        <span class="n">b_name</span> <span class="o">=</span> <span class="s2">&quot;bands&quot;</span>
-
-                    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">layer_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">object_type</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">b_name</span><span class="si">}</span><span class="s2">)&quot;</span>
-                    <span class="n">layer_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_expand_pixels</span><span class="p">)</span>
-
-                    <span class="n">keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-                    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
-                        <span class="n">value</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
-                            <span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">decimals</span><span class="p">)</span>
-                        <span class="n">layer_node</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;file&quot;</span><span class="p">))</span>
-
-                    <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer_node</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="k">pass</span>
-
-        <span class="n">root_node</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span>
-
-        <span class="n">root_node</span><span class="o">.</span><span class="n">open_icon</span> <span class="o">=</span> <span class="s2">&quot;plus-square&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">open_icon_style</span> <span class="o">=</span> <span class="s2">&quot;success&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">close_icon</span> <span class="o">=</span> <span class="s2">&quot;minus-square&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">close_icon_style</span> <span class="o">=</span> <span class="s2">&quot;info&quot;</span>
-
-        <span class="k">if</span> <span class="n">return_node</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">root_node</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Tree</span><span class="p">(</span><span class="n">nodes</span><span class="o">=</span><span class="p">[</span><span class="n">root_node</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">_objects_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latlon</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the ipytree widget for displaying the Earth Engine objects at the mouse clicking point.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            latlon (list | tuple): The coordinates (lat, lon) of the point.</span>
-<span class="sd">            names (str | list, optional): The names of the layers to be included. Defaults to None.</span>
-<span class="sd">            visible (bool, optional): Whether to inspect visible layers only. Defaults to True.</span>
-<span class="sd">            return_node (bool, optional): If True, return the ipytree node.</span>
-<span class="sd">                Otherwise, return the ipytree tree widget. Defaults to False.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            ipytree.Node | ipytree.Tree: The ipytree node or tree widget.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">ipytree</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Tree</span>
-
-        <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">]</span>
-            <span class="n">layers</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_names</span><span class="p">:</span>
-                    <span class="n">layers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span>
-
-        <span class="n">xy</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">latlon</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">root_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">&quot;Objects&quot;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;archive&quot;</span><span class="p">)</span>
-
-        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
-            <span class="n">layer_name</span> <span class="o">=</span> <span class="n">layer</span>
-            <span class="n">ee_object</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="s2">&quot;ee_object&quot;</span><span class="p">]</span>
-
-            <span class="k">if</span> <span class="n">visible</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ee_layer_dict</span><span class="p">[</span><span class="n">layer_name</span><span class="p">][</span><span class="s2">&quot;ee_layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
-                    <span class="k">continue</span>
-
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ee_object</span><span class="p">,</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">):</span>
-                <span class="c1"># Check geometry type</span>
-                <span class="n">geom_type</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">ee_object</span><span class="o">.</span><span class="n">first</span><span class="p">())</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">type</span><span class="p">()</span>
-                <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">latlon</span>
-                <span class="n">delta</span> <span class="o">=</span> <span class="mf">0.005</span>
-                <span class="n">bbox</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Geometry</span><span class="o">.</span><span class="n">BBox</span><span class="p">(</span>
-                    <span class="n">lon</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span>
-                    <span class="n">lat</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span>
-                    <span class="n">lon</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span>
-                    <span class="n">lat</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span>
-                <span class="p">)</span>
-                <span class="c1"># Create a bounding box to filter points</span>
-                <span class="n">xy</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Algorithms</span><span class="o">.</span><span class="n">If</span><span class="p">(</span>
-                    <span class="n">geom_type</span><span class="o">.</span><span class="n">compareTo</span><span class="p">(</span><span class="n">ee</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s2">&quot;Point&quot;</span><span class="p">)),</span>
-                    <span class="n">xy</span><span class="p">,</span>
-                    <span class="n">bbox</span><span class="p">,</span>
-                <span class="p">)</span>
-
-                <span class="n">ee_object</span> <span class="o">=</span> <span class="n">ee_object</span><span class="o">.</span><span class="n">filterBounds</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">node</span> <span class="o">=</span> <span class="n">get_info</span><span class="p">(</span>
-                    <span class="n">ee_object</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_expand_objects</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">True</span>
-                <span class="p">)</span>
-                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="k">pass</span>
-
-        <span class="n">root_node</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span>
-
-        <span class="n">root_node</span><span class="o">.</span><span class="n">open_icon</span> <span class="o">=</span> <span class="s2">&quot;plus-square&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">open_icon_style</span> <span class="o">=</span> <span class="s2">&quot;success&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">close_icon</span> <span class="o">=</span> <span class="s2">&quot;minus-square&quot;</span>
-        <span class="n">root_node</span><span class="o">.</span><span class="n">close_icon_style</span> <span class="o">=</span> <span class="s2">&quot;info&quot;</span>
-
-        <span class="k">if</span> <span class="n">return_node</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">root_node</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Tree</span><span class="p">(</span><span class="n">nodes</span><span class="o">=</span><span class="p">[</span><span class="n">root_node</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">inspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latlon</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the Inspector GUI.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            latlon (list | tuple): The coordinates (lat, lon) of the point.</span>
-<span class="sd">        Returns:</span>
-<span class="sd">            ipytree.Tree: The ipytree tree widget for the Inspector GUI.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">ipytree</span> <span class="kn">import</span> <span class="n">Tree</span>
-
-        <span class="n">tree</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
-        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">point_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_info</span><span class="p">(</span><span class="n">latlon</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point_node</span><span class="p">)</span>
-        <span class="n">pixels_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pixels_info</span><span class="p">(</span><span class="n">latlon</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">pixels_node</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pixels_node</span><span class="p">)</span>
-        <span class="n">objects_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects_info</span><span class="p">(</span><span class="n">latlon</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">objects_node</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objects_node</span><span class="p">)</span>
-        <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span>
-        <span class="k">return</span> <span class="n">tree</span>
-
     <span class="k">def</span> <span class="nf">add_inspector</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -7553,13 +7324,24 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">            decimals (int, optional): The number of decimal places to round the coordinates. Defaults to 2.</span>
 <span class="sd">            position (str, optional): The position of the Inspector GUI. Defaults to &quot;topright&quot;.</span>
 <span class="sd">            opened (bool, optional): Whether the control is opened. Defaults to True.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">ee_inspector_gui</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">:</span>
+            <span class="k">return</span>
 
-        <span class="n">ee_inspector_gui</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span>
+        <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">inspector</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span><span class="p">)</span>
+        <span class="n">inspector</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
+            <span class="n">widget</span><span class="o">=</span><span class="n">inspector</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_layer_manager</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span>
@@ -11652,6 +11434,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
     <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">zoom</span> <span class="o">=</span> <span class="mi">2</span>
 
+    <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
+
     <span class="c1"># Set map width and height</span>
     <span class="k">if</span> <span class="s2">&quot;height&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;height&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;600px&quot;</span>
@@ -14522,13 +14306,24 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">        decimals (int, optional): The number of decimal places to round the coordinates. Defaults to 2.</span>
 <span class="sd">        position (str, optional): The position of the Inspector GUI. Defaults to &quot;topright&quot;.</span>
 <span class="sd">        opened (bool, optional): Whether the control is opened. Defaults to True.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">ee_inspector_gui</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">:</span>
+        <span class="k">return</span>
 
-    <span class="n">ee_inspector_gui</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span>
+    <span class="k">def</span> <span class="nf">_on_close</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_reset</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">remove_control</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">inspector</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span><span class="p">)</span>
+    <span class="n">inspector</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
+        <span class="n">widget</span><span class="o">=</span><span class="n">inspector</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
     <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -22802,86 +22597,6 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h3 id="geemap.geemap.Map.inspect" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">inspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latlon</span><span class="p">)</span></code>
-
-
-<a href="#geemap.geemap.Map.inspect" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Create the Inspector GUI.</p>
-
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><code>latlon</code></td>
-        <td><code>list | tuple</code></td>
-        <td><p>The coordinates (lat, lon) of the point.</p></td>
-        <td><em>required</em></td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>ipytree.Tree</code></td>
-      <td><p>The ipytree tree widget for the Inspector GUI.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>geemap/geemap.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">inspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latlon</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create the Inspector GUI.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        latlon (list | tuple): The coordinates (lat, lon) of the point.</span>
-<span class="sd">    Returns:</span>
-<span class="sd">        ipytree.Tree: The ipytree tree widget for the Inspector GUI.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">ipytree</span> <span class="kn">import</span> <span class="n">Tree</span>
-
-    <span class="n">tree</span> <span class="o">=</span> <span class="n">Tree</span><span class="p">()</span>
-    <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">point_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_point_info</span><span class="p">(</span><span class="n">latlon</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point_node</span><span class="p">)</span>
-    <span class="n">pixels_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pixels_info</span><span class="p">(</span><span class="n">latlon</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">pixels_node</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pixels_node</span><span class="p">)</span>
-    <span class="n">objects_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_objects_info</span><span class="p">(</span><span class="n">latlon</span><span class="p">,</span> <span class="n">return_node</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">objects_node</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
-        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objects_node</span><span class="p">)</span>
-    <span class="n">tree</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span>
-    <span class="k">return</span> <span class="n">tree</span>
 </code></pre></div>
         </details>
     </div>
