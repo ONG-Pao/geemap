@@ -1340,6 +1340,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geemap.geemap.Map.remove_draw_control" class="md-nav__link">
+    remove_draw_control()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.remove_drawn_features" class="md-nav__link">
     remove_drawn_features()
   </a>
@@ -1524,6 +1531,40 @@
           <li class="md-nav__item">
   <a href="#geemap.geemap.Map.zoom_to_me" class="md-nav__link">
     zoom_to_me()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geemap.geemap.MapDrawControl" class="md-nav__link">
+    MapDrawControl
+  </a>
+  
+    <nav class="md-nav" aria-label="MapDrawControl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.MapDrawControl.user_roi" class="md-nav__link">
+    user_roi
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.MapDrawControl.user_rois" class="md-nav__link">
+    user_rois
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.MapDrawControl.__init__" class="md-nav__link">
+    __init__()
   </a>
   
 </li>
@@ -4474,6 +4515,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#geemap.geemap.Map.remove_draw_control" class="md-nav__link">
+    remove_draw_control()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#geemap.geemap.Map.remove_drawn_features" class="md-nav__link">
     remove_drawn_features()
   </a>
@@ -4658,6 +4706,40 @@
           <li class="md-nav__item">
   <a href="#geemap.geemap.Map.zoom_to_me" class="md-nav__link">
     zoom_to_me()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geemap.geemap.MapDrawControl" class="md-nav__link">
+    MapDrawControl
+  </a>
+  
+    <nav class="md-nav" aria-label="MapDrawControl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.MapDrawControl.user_roi" class="md-nav__link">
+    user_roi
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.MapDrawControl.user_rois" class="md-nav__link">
+    user_rois
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geemap.geemap.MapDrawControl.__init__" class="md-nav__link">
+    __init__()
   </a>
   
 </li>
@@ -4915,6 +4997,27 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        object: ipyleaflet map object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># Map attributes for drawing features</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">draw_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">features</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">draw_last_feature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">last_feature</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">draw_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">layer</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_roi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">user_roi</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_rois</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">user_rois</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="k">else</span> <span class="kc">None</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a map object. The following additional parameters can be passed in addition to the ipyleaflet.Map parameters:</span>
 
@@ -5038,13 +5141,6 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">bottomright_controls</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Map attributes for drawing features</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="c1"># Map attributes for layers</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geojson_layers</span> <span class="o">=</span> <span class="p">[]</span>
@@ -7336,7 +7432,9 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
                 <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="n">inspector</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span><span class="p">)</span>
+        <span class="n">inspector</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span>
+        <span class="p">)</span>
         <span class="n">inspector</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
             <span class="n">widget</span><span class="o">=</span><span class="n">inspector</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
@@ -7369,8 +7467,8 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        Args:</span>
 <span class="sd">            position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">draw_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">(</span>
+        <span class="n">draw_control</span> <span class="o">=</span> <span class="n">MapDrawControl</span><span class="p">(</span>
+            <span class="n">host_map</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
             <span class="n">rectangle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
             <span class="c1"># circle={&quot;shapeOptions&quot;: {&quot;color&quot;: &quot;#3388ff&quot;}},</span>
@@ -7379,50 +7477,6 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
             <span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
         <span class="p">)</span>
-
-        <span class="c1"># Handles draw events</span>
-        <span class="k">def</span> <span class="nf">handle_draw</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">geo_json</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="n">geom</span> <span class="o">=</span> <span class="n">geojson_to_ee</span><span class="p">(</span><span class="n">geo_json</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="n">geom</span>
-                <span class="n">feature</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="n">feature</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_draw_count&quot;</span><span class="p">):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;deleted&quot;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">-=</span> <span class="mi">1</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">collection</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="n">collection</span>
-                <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
-                    <span class="n">collection</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span> <span class="s2">&quot;Drawn Features&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">0.5</span>
-                <span class="p">)</span>
-                <span class="n">draw_layer_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer_index</span><span class="p">(</span><span class="s2">&quot;Drawn Features&quot;</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">draw_layer_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ee_draw_layer</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="n">ee_draw_layer</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">substitute_layer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span><span class="p">,</span> <span class="n">ee_draw_layer</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="n">ee_draw_layer</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There was an error creating Earth Engine Feature.&quot;</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-
-        <span class="n">draw_control</span><span class="o">.</span><span class="n">on_draw</span><span class="p">(</span><span class="n">handle_draw</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">draw_control</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="o">=</span> <span class="n">draw_control</span>
 
@@ -7454,8 +7508,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">Toolbar</span><span class="p">,</span> <span class="n">main_tools</span><span class="p">,</span> <span class="n">extra_tools</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span> <span class="o">=</span> <span class="n">Toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_tools</span><span class="p">,</span> <span class="n">extra_tools</span><span class="p">)</span>
-        <span class="n">toolbar_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="n">toolbar_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
+            <span class="n">widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">toolbar_control</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_plot_gui</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;topright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -8929,46 +8986,37 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The source must be a URL.&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">remove_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes the draw control from the map&quot;&quot;&quot;</span>
+        <span class="n">controls</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">old_draw_control</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">MapDrawControl</span><span class="p">):</span>
+                <span class="n">old_draw_control</span> <span class="o">=</span> <span class="n">control</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">controls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">controls</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">old_draw_control</span><span class="p">:</span>
+            <span class="n">old_draw_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
     <span class="k">def</span> <span class="nf">remove_drawn_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes user-drawn geometries from the map&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_chart_labels</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">remove_last_drawn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes user-drawn geometries from the map&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">collection</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
-                <span class="n">collection</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span> <span class="s2">&quot;Drawn Features&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mf">0.5</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes last user-drawn geometry from the map&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">remove_drawn_features</span><span class="p">()</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">substitute_layer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span><span class="p">,</span> <span class="n">ee_draw_layer</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="n">ee_draw_layer</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">-=</span> <span class="mi">1</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="n">ee_draw_layer</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span>
-                    <span class="n">collection</span><span class="o">.</span><span class="n">toList</span><span class="p">(</span><span class="n">collection</span><span class="o">.</span><span class="n">size</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                        <span class="n">collection</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-                    <span class="p">)</span>
-                <span class="p">)</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="n">collection</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">count</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">remove_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">geometries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chart_values&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chart_points&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
                 <span class="c1"># self._chart_labels = None</span>
 
     <span class="k">def</span> <span class="nf">extract_values_to_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
@@ -11242,6 +11290,11 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
 
 
 
+
+
+
+
+
   <div class="doc doc-object doc-method">
 
 
@@ -11517,13 +11570,6 @@ Map            (<span title="ipyleaflet.leaflet.Map">Map</span>)
         <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">bottomright_controls</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Map attributes for drawing features</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Map attributes for layers</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">geojson_layers</span> <span class="o">=</span> <span class="p">[]</span>
@@ -13072,8 +13118,8 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
 <span class="sd">    Args:</span>
 <span class="sd">        position (str, optional): The position of the draw control. Defaults to &quot;topleft&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">draw_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">(</span>
+    <span class="n">draw_control</span> <span class="o">=</span> <span class="n">MapDrawControl</span><span class="p">(</span>
+        <span class="n">host_map</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
         <span class="n">marker</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
         <span class="n">rectangle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shapeOptions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#3388ff&quot;</span><span class="p">}},</span>
         <span class="c1"># circle={&quot;shapeOptions&quot;: {&quot;color&quot;: &quot;#3388ff&quot;}},</span>
@@ -13082,50 +13128,6 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
         <span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
     <span class="p">)</span>
-
-    <span class="c1"># Handles draw events</span>
-    <span class="k">def</span> <span class="nf">handle_draw</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">geo_json</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">geom</span> <span class="o">=</span> <span class="n">geojson_to_ee</span><span class="p">(</span><span class="n">geo_json</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="n">geom</span>
-            <span class="n">feature</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="n">feature</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_draw_count&quot;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;deleted&quot;</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">-=</span> <span class="mi">1</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">collection</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="n">collection</span>
-            <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
-                <span class="n">collection</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span> <span class="s2">&quot;Drawn Features&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">0.5</span>
-            <span class="p">)</span>
-            <span class="n">draw_layer_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_layer_index</span><span class="p">(</span><span class="s2">&quot;Drawn Features&quot;</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">draw_layer_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ee_draw_layer</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="n">ee_draw_layer</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">substitute_layer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span><span class="p">,</span> <span class="n">ee_draw_layer</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="n">ee_draw_layer</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There was an error creating Earth Engine Feature.&quot;</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-
-    <span class="n">draw_control</span><span class="o">.</span><span class="n">on_draw</span><span class="p">(</span><span class="n">handle_draw</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">draw_control</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="o">=</span> <span class="n">draw_control</span>
 </code></pre></div>
@@ -14316,7 +14318,9 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
             <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">inspector</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span><span class="p">)</span>
+    <span class="n">inspector</span> <span class="o">=</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">Inspector</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">visible</span><span class="p">,</span> <span class="n">decimals</span><span class="p">,</span> <span class="n">opened</span><span class="p">,</span> <span class="n">show_close_button</span>
+    <span class="p">)</span>
     <span class="n">inspector</span><span class="o">.</span><span class="n">on_close</span> <span class="o">=</span> <span class="n">_on_close</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">inspector_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
         <span class="n">widget</span><span class="o">=</span><span class="n">inspector</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
@@ -19306,8 +19310,11 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">.toolbar</span> <span class="kn">import</span> <span class="n">Toolbar</span><span class="p">,</span> <span class="n">main_tools</span><span class="p">,</span> <span class="n">extra_tools</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span> <span class="o">=</span> <span class="n">Toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_tools</span><span class="p">,</span> <span class="n">extra_tools</span><span class="p">)</span>
-    <span class="n">toolbar_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+    <span class="n">toolbar_control</span> <span class="o">=</span> <span class="n">ipyleaflet</span><span class="o">.</span><span class="n">WidgetControl</span><span class="p">(</span>
+        <span class="n">widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_toolbar</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span>
+    <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">toolbar_control</span><span class="p">)</span>
 </code></pre></div>
         </details>
@@ -23335,6 +23342,44 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
 
 
+<h3 id="geemap.geemap.Map.remove_draw_control" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">remove_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#geemap.geemap.Map.remove_draw_control" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Removes the draw control from the map</p>
+
+        <details class="quote">
+          <summary>Source code in <code>geemap/geemap.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes the draw control from the map&quot;&quot;&quot;</span>
+    <span class="n">controls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">old_draw_control</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controls</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">control</span><span class="p">,</span> <span class="n">MapDrawControl</span><span class="p">):</span>
+            <span class="n">old_draw_control</span> <span class="o">=</span> <span class="n">control</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">controls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">controls</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">old_draw_control</span><span class="p">:</span>
+        <span class="n">old_draw_control</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
 <h3 id="geemap.geemap.Map.remove_drawn_features" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">remove_drawn_features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
@@ -23349,19 +23394,8 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_drawn_features</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes user-drawn geometries from the map&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">remove_layer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_chart_labels</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 </code></pre></div>
         </details>
     </div>
@@ -23473,34 +23507,21 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
     <div class="doc doc-contents ">
 
-      <p>Removes user-drawn geometries from the map</p>
+      <p>Removes last user-drawn geometry from the map</p>
 
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_last_drawn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes user-drawn geometries from the map&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">collection</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">ee_draw_layer</span> <span class="o">=</span> <span class="n">EELeafletTileLayer</span><span class="p">(</span>
-            <span class="n">collection</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;blue&quot;</span><span class="p">},</span> <span class="s2">&quot;Drawn Features&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mf">0.5</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes last user-drawn geometry from the map&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_drawn_features</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">substitute_layer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span><span class="p">,</span> <span class="n">ee_draw_layer</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="n">ee_draw_layer</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_draw_count</span> <span class="o">-=</span> <span class="mi">1</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_last_feature</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_features</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">draw_layer</span> <span class="o">=</span> <span class="n">ee_draw_layer</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_roi</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span>
-                <span class="n">collection</span><span class="o">.</span><span class="n">toList</span><span class="p">(</span><span class="n">collection</span><span class="o">.</span><span class="n">size</span><span class="p">())</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                    <span class="n">collection</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-                <span class="p">)</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">user_rois</span> <span class="o">=</span> <span class="n">collection</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">count</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">remove_geometry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">draw_control</span><span class="o">.</span><span class="n">geometries</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chart_values&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_values</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chart_points&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chart_points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="c1"># self._chart_labels = None</span>
 </code></pre></div>
         </details>
@@ -25457,6 +25478,259 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
             <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Device location&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="geemap.geemap.MapDrawControl" class="doc doc-heading">
+        <code>
+MapDrawControl            (<span title="ipyleaflet.leaflet.DrawControl">DrawControl</span>, <a class="autorefs autorefs-internal" title="geemap.map_widgets.AbstractDrawControl" href="../map_widgets/#geemap.map_widgets.AbstractDrawControl">AbstractDrawControl</a>)
+        </code>
+
+
+
+<a href="#geemap.geemap.MapDrawControl" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>"Implements the AbstractDrawControl for the map.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>geemap/geemap.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MapDrawControl</span><span class="p">(</span><span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">,</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">AbstractDrawControl</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;Implements the AbstractDrawControl for the map.&quot;&quot;&quot;</span>
+
+    <span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the map draw control.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            host_map (geemap.Map): The geemap.Map object that the control will be added to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MapDrawControl</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">host_map</span><span class="o">=</span><span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_roi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the last drawn geometry.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ee.Geometry: Last drawn geometry.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_geometry</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_rois</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns all drawn geometries as an ee.FeatureCollection.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ee.FeatureCollection: All drawn geometries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">collection</span>
+
+    <span class="c1"># NOTE: Overridden for backwards compatibility, where edited geometries are</span>
+    <span class="c1"># added to the layer instead of modified in place. Remove when</span>
+    <span class="c1"># https://github.com/jupyter-widgets/ipyleaflet/issues/1119 is fixed to</span>
+    <span class="c1"># allow geometry edits to be reflected on the tile layer.</span>
+    <span class="k">def</span> <span class="nf">_handle_geometry_edited</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geo_json</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_geometry_created</span><span class="p">(</span><span class="n">geo_json</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_synced_geojson_from_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_bind_to_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Handles draw events</span>
+        <span class="k">def</span> <span class="nf">handle_draw</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">geo_json</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;created&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_geometry_created</span><span class="p">(</span><span class="n">geo_json</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;edited&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_geometry_edited</span><span class="p">(</span><span class="n">geo_json</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;deleted&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_handle_geometry_deleted</span><span class="p">(</span><span class="n">geo_json</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">clear_draw_control</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There was an error creating Earth Engine Feature.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_draw</span><span class="p">(</span><span class="n">handle_draw</span><span class="p">)</span>
+        <span class="c1"># NOTE: Uncomment the following code once</span>
+        <span class="c1"># https://github.com/jupyter-widgets/ipyleaflet/issues/1119 is fixed</span>
+        <span class="c1"># to allow edited geometries to be reflected instead of added.</span>
+        <span class="c1"># def handle_data_update(_):</span>
+        <span class="c1">#     self._sync_geometries()</span>
+        <span class="c1"># self.observe(handle_data_update, &#39;data&#39;)</span>
+
+    <span class="k">def</span> <span class="nf">_remove_geometry_at_index_on_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="c1"># NOTE: Uncomment the following code once</span>
+        <span class="c1"># https://github.com/jupyter-widgets/ipyleaflet/issues/1119 is fixed to</span>
+        <span class="c1"># remove drawn geometries with `remove_last_drawn()`.</span>
+        <span class="c1"># del self.data[index]</span>
+        <span class="c1"># self.send_state(key=&#39;data&#39;)</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_clear_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="geemap.geemap.MapDrawControl.user_roi" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">user_roi</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#geemap.geemap.MapDrawControl.user_roi" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns the last drawn geometry.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ee.Geometry</code></td>
+      <td><p>Last drawn geometry.</p></td>
+    </tr>
+  </tbody>
+</table>    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="geemap.geemap.MapDrawControl.user_rois" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">user_rois</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#geemap.geemap.MapDrawControl.user_rois" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Returns all drawn geometries as an ee.FeatureCollection.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ee.FeatureCollection</code></td>
+      <td><p>All drawn geometries.</p></td>
+    </tr>
+  </tbody>
+</table>    </div>
+
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="geemap.geemap.MapDrawControl.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a href="#geemap.geemap.MapDrawControl.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the map draw control.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>host_map</code></td>
+        <td><code>geemap.Map</code></td>
+        <td><p>The geemap.Map object that the control will be added to.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>geemap/geemap.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the map draw control.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        host_map (geemap.Map): The geemap.Map object that the control will be added to.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MapDrawControl</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">host_map</span><span class="o">=</span><span class="n">host_map</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
