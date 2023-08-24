@@ -25373,12 +25373,12 @@ MapDrawControl            (<span title="ipyleaflet.leaflet.DrawControl">DrawCont
 
     <div class="doc doc-contents ">
 
-      <p>"Implements the AbstractDrawControl for the map.</p>
+      <p>Implements the AbstractDrawControl for the map.</p>
 
         <details class="quote">
           <summary>Source code in <code>geemap/geemap.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MapDrawControl</span><span class="p">(</span><span class="n">ipyleaflet</span><span class="o">.</span><span class="n">DrawControl</span><span class="p">,</span> <span class="n">map_widgets</span><span class="o">.</span><span class="n">AbstractDrawControl</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; &quot;Implements the AbstractDrawControl for the map.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Implements the AbstractDrawControl for the map.&quot;&quot;&quot;</span>
 
     <span class="n">_roi_start</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">_roi_end</span> <span class="o">=</span> <span class="kc">False</span>
@@ -25456,6 +25456,7 @@ MapDrawControl            (<span title="ipyleaflet.leaflet.DrawControl">DrawCont
         <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">_clear_draw_control</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Remove all drawn features from the map.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </code></pre></div>
         </details>
