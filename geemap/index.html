@@ -12208,7 +12208,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">content</span><span class="p">,</span>
         <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
-        <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">add_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">widget_icon</span><span class="o">=</span><span class="s2">&quot;gear&quot;</span><span class="p">,</span>
@@ -12223,7 +12223,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
 <span class="sd">        Args:</span>
 <span class="sd">            content (str | ipywidgets.Widget | object): The widget to add.</span>
 <span class="sd">            position (str, optional): The position of the widget. Defaults to &quot;bottomright&quot;.</span>
-<span class="sd">            add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to True.</span>
+<span class="sd">            add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to False.</span>
 <span class="sd">            opened (bool, optional): Whether to open the toolbar. Defaults to True.</span>
 <span class="sd">            show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">            widget_icon (str, optional): The icon name for the toolbar button. Defaults to &#39;gear&#39;.</span>
@@ -12294,7 +12294,7 @@ Map            (<a class="autorefs autorefs-internal" title="geemap.core.Map" hr
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Invalid image&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add HTML to the map.</span>
@@ -15288,7 +15288,7 @@ style_callback = lambda feat: {"fillColor": feat["properties"][&quot;color&quot;
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Invalid image&quot;</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -20783,7 +20783,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 
 
 <h3 id="geemap.geemap.Map.add_widget" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">widget_icon</span><span class="o">=</span><span class="s1">&#39;gear&#39;</span><span class="p">,</span> <span class="n">close_button_icon</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">close_button_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">display_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">add_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="s1">&#39;bottomright&#39;</span><span class="p">,</span> <span class="n">add_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">widget_icon</span><span class="o">=</span><span class="s1">&#39;gear&#39;</span><span class="p">,</span> <span class="n">close_button_icon</span><span class="o">=</span><span class="s1">&#39;times&#39;</span><span class="p">,</span> <span class="n">widget_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">close_button_args</span><span class="o">=</span><span class="p">{},</span> <span class="n">display_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#geemap.geemap.Map.add_widget" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -20818,8 +20818,8 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
       <tr>
         <td><code>add_header</code></td>
         <td><code>bool</code></td>
-        <td><p>Whether to add a header with close buttons to the widget. Defaults to True.</p></td>
-        <td><code>True</code></td>
+        <td><p>Whether to add a header with close buttons to the widget. Defaults to False.</p></td>
+        <td><code>False</code></td>
       </tr>
       <tr>
         <td><code>opened</code></td>
@@ -20877,7 +20877,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">content</span><span class="p">,</span>
     <span class="n">position</span><span class="o">=</span><span class="s2">&quot;bottomright&quot;</span><span class="p">,</span>
-    <span class="n">add_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">add_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">opened</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">show_close_button</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">widget_icon</span><span class="o">=</span><span class="s2">&quot;gear&quot;</span><span class="p">,</span>
@@ -20892,7 +20892,7 @@ os.environ[&#39;LOCALTILESERVER_CLIENT_PREFIX&#39;] = &#39;proxy/{port}&#39;
 <span class="sd">    Args:</span>
 <span class="sd">        content (str | ipywidgets.Widget | object): The widget to add.</span>
 <span class="sd">        position (str, optional): The position of the widget. Defaults to &quot;bottomright&quot;.</span>
-<span class="sd">        add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to True.</span>
+<span class="sd">        add_header (bool, optional): Whether to add a header with close buttons to the widget. Defaults to False.</span>
 <span class="sd">        opened (bool, optional): Whether to open the toolbar. Defaults to True.</span>
 <span class="sd">        show_close_button (bool, optional): Whether to show the close button. Defaults to True.</span>
 <span class="sd">        widget_icon (str, optional): The icon name for the toolbar button. Defaults to &#39;gear&#39;.</span>
